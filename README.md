@@ -16,6 +16,14 @@ git clone --recursive https://github.com/carlito767/???
 pip install -r requirements.txt
 ```
 
+* Créer un fichier `.env` et renseigner [les clés *développeur* de votre application Twitter](https://developer.twitter.com/en/docs/basics/getting-started) :
+
+```
+# Consumer API keys
+API_KEY=<renseigner_ici_votre_clé_developpeur>
+API_SECRET_KEY=<renseigner_ici_votre_clé_secrète_developpeur>
+```
+
 # Exécution
 
 * Lancer le script :

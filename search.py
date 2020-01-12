@@ -1,15 +1,20 @@
 # Sources:
 # https://blog.goodaudience.com/using-the-twitter-api-with-python-c6e8da96d273
+# https://preslav.me/2019/01/09/dotenv-files-python/
 
 import base64
 import json
+import os
 import requests
 import webbrowser
 
+# Settings
+from dotenv import load_dotenv
+load_dotenv()
+
 # Consumer API keys
-# TODO: use .env file: https://pypi.org/project/python-dotenv/
-API_KEY = 'RV8lBpxB7hiezPVK2HwM6KNPy'
-API_SECRET_KEY = 'gKaAsAP1BUWikumjpJ4MZM0JeLIjgwBqBTkfNYuIgUzPFkNZGM'
+API_KEY = os.getenv('API_KEY')
+API_SECRET_KEY = os.getenv('API_SECRET_KEY')
 
 key_ascii = '{}:{}'.format(API_KEY, API_SECRET_KEY).encode('ascii')
 key_base64 = base64.b64encode(key_ascii)
