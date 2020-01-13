@@ -16,7 +16,9 @@ def index():
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.form.get('query')
-    content = twitter.search(query)
+    count = request.form.get('count')
+
+    content = twitter.search(query, count)
     tweet_id = content['statuses'][0]['id']
     tweet_url = f'https://twitter.com/user/status/{tweet_id}'
     # return f'Request: {query}, tweet url: <a href="{tweet_url}">{tweet_url}</a>'
