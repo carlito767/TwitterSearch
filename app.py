@@ -1,5 +1,6 @@
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, Response, url_for
 from forms import SearchForm
+import json
 import twitter
 
 app = Flask(__name__)
@@ -15,9 +16,14 @@ def index():
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.form.get('query')
-    tweet_id = twitter.search(query)
+    content = twitter.search(query)
+    tweet_id = content['statuses'][0]['id']
     tweet_url = f'https://twitter.com/user/status/{tweet_id}'
-    return f'Request: {query}, tweet url: <a href="{tweet_url}">{tweet_url}</a>'
+    # return f'Request: {query}, tweet url: <a href="{tweet_url}">{tweet_url}</a>'
+
+    return Response(json.dumps(content), 
+        mimetype='application/json',
+        headers={'Content-Disposition':'attachment;filename=search.json'})
 
 if __name__ == '__main__':
     app.run()

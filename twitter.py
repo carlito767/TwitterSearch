@@ -54,15 +54,5 @@ def search(query):
     search_resp = requests.get(search_url, headers=search_headers, params=search_params)
     print(f'Search status: {search_resp.status_code}')
 
-    data = json.loads(search_resp.content)
-    tweet_id = data['statuses'][0]['id']
-    print(f'Tweet Id: {tweet_id}')
-
-    # JSON file
-    # TODO: use unique filename
-    file = open('out.json', 'w+')
-    json.dump(data, file)
-    file.close()
-
-    return tweet_id
-
+    content = json.loads(search_resp.content)
+    return content
