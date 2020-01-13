@@ -19,13 +19,12 @@ def search():
     count = request.form.get('count')
 
     content = twitter.search(query, count)
-    tweet_id = content['statuses'][0]['id']
-    tweet_url = f'https://twitter.com/user/status/{tweet_id}'
-    # return f'Request: {query}, tweet url: <a href="{tweet_url}">{tweet_url}</a>'
 
-    return Response(json.dumps(content), 
-        mimetype='application/json',
-        headers={'Content-Disposition':'attachment;filename=search.json'})
+    return render_template('search.html', title='Twitter Search', content=content)
+
+    # return Response(json.dumps(content), 
+    #     mimetype='application/json',
+    #     headers={'Content-Disposition':'attachment;filename=search.json'})
 
 if __name__ == '__main__':
     app.run()
