@@ -9,6 +9,10 @@
         {{ form.query(size=100) }}
     </p>
     <p>
+        {{ form.no_retweets() }}
+        {{ form.no_retweets.label }}
+    </p>
+    <p>
         {{ form.count.label }}<br>
         {{ form.count(size=4) }}
     </p>

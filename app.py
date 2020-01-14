@@ -13,7 +13,11 @@ def index():
     form = SearchForm()
     if form.validate_on_submit():
         query = request.form.get('query')
+        no_retweets = request.form.get('no_retweets')
         count = request.form.get('count')
+
+        if no_retweets:
+            query += ' -filter:retweets'
 
         content = twitter.search(query, count)
 
