@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, Response, send_from_directory, url_for
-from forms import SearchForm, ResultsForm
+from forms import SearchForm
 import json
 import os
 import tempfile
@@ -30,8 +30,7 @@ def search():
     json.dump(content, f)
     f.close
 
-    form = ResultsForm()
-    return render_template('search.html', title='Twitter Search', form=form, content=content, filename=filename)
+    return render_template('search.html', title='Twitter Search', content=content, filename=filename)
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
