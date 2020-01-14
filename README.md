@@ -1,4 +1,4 @@
-# Twitter
+# TwitterSearch
 Recherche de tweets via l'API Search de Twitter
 
 # Configuration
