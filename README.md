@@ -7,7 +7,7 @@ Recherche de tweets via l'API Search de Twitter
 * Ajouter le dossier d'installation de `Python` et le dossier Scripts (contenant l'exécutable `pip`) dans le PATH
 * Cloner ce dépôt :
 ```
-git clone --recursive https://github.com/carlito767/???
+git clone --recursive https://github.com/carlito767/TwitterSearch
 ```
 
 * Installer les modules nécessaires au projet (à partir du dossier du projet) :
@@ -29,5 +29,5 @@ API_SECRET_KEY=<renseigner_ici_votre_clé_secrète_developpeur>
 * Lancer le script :
 
 ```
-python search.py
+python app.py
 ```
