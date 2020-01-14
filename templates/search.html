@@ -2,12 +2,13 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<form action="" method="post">
-    {% for tweet in content['statuses'] %}
-        <li>
-            {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
-            <a href="{{ url }}">{{ tweet.text }}</a>
-        </li>
-    {% endfor %}
+<form action="{{ url_for('download', filename=filename) }}" method="post">
+    <p>{{ form.download() }}</p>
 </form>
+{% for tweet in content['statuses'] %}
+    <li>
+        {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
+        <a href="{{ url }}">{{ tweet.text }}</a>
+    </li>
+{% endfor %}
 {% endblock %}
