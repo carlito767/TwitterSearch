@@ -16,6 +16,10 @@
         {{ form.count.label }}<br>
         {{ form.count(size=4) }}
     </p>
+    <p>
+        {{ form.geocode.label }}<br>
+        {{ form.geocode(size=50) }}
+    </p>
     <p>{{ form.submit() }}</p>
 </form>
 {% endblock %}

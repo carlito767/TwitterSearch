@@ -35,8 +35,10 @@ def __authenticate():
     access_token = auth_resp.json()['access_token']
     return access_token
 
-def search(query, count):
+def search(query, count, geocode):
     print(f'Query: {query}')
+    print(f'Count: {count}')
+    print(f'Geocode: {geocode}')
 
     # Authentication
     access_token = __authenticate()
@@ -48,7 +50,8 @@ def search(query, count):
     search_params = {
         'q': query,
         'result_type': 'recent',
-        'count': count
+        'count': count,
+        'geocode': geocode
     }
     search_url = '{}1.1/search/tweets.json'.format(__base_url)
     search_resp = requests.get(search_url, headers=search_headers, params=search_params)
