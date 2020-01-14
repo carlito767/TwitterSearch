@@ -25,19 +25,24 @@ def index():
         json.dump(content, f)
         f.close()
 
-        return redirect(url_for('search', filename=filename))
+        search_id, extension = os.path.splitext(filename)
+        print(f'Search ID: {search_id}')
+
+        return redirect(url_for('search', search_id=search_id))
     return render_template('index.html', title='Twitter Search', form=form)
 
-@app.route('/search/<filename>')
-def search(filename):
+@app.route('/search/<search_id>')
+def search(search_id):
+    filename = search_id + '.json'
     f = open(os.path.join(tempfile.gettempdir(), filename), "r")
     content = json.load(f)
     f.close()
 
-    return render_template('search.html', title='Twitter Search', content=content, filename=filename)
+    return render_template('search.html', title='Twitter Search', content=content, search_id=search_id)
 
-@app.route('/download/<filename>', methods=['GET', 'POST'])
-def download(filename):
+@app.route('/download/<search_id>', methods=['GET', 'POST'])
+def download(search_id):
+    filename = search_id + '.json'
     print(f'Download JSON file: {filename}')
     return send_from_directory(tempfile.gettempdir(), filename, as_attachment=True)
 

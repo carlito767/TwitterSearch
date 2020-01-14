@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<form action="{{ url_for('download', filename=filename) }}" method="post">
+<form action="{{ url_for('download', search_id=search_id) }}" method="post">
     <p><input type="submit" value="Download JSON"></p>
 </form>
 {% for tweet in content['statuses'] %}
