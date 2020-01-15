@@ -14,20 +14,20 @@ def index():
     if form.validate_on_submit():
         query = request.form.get('query')
         no_retweets = request.form.get('no_retweets')
-        count = request.form.get('count')
+        n = request.form.get('n')
         geocode = request.form.get('geocode')
 
         if no_retweets:
             query += ' -filter:retweets'
 
-        content = twitter.search(query, count, geocode)
+        result = twitter.search(query, int(n), geocode)
 
         # JSON file
         f = tempfile.NamedTemporaryFile(prefix='search_', suffix='.json', mode='w+', delete=False)
         print(f'JSON path: {f.name}')
         filename = os.path.basename(f.name)
         print(f'JSON filename: {filename}')
-        json.dump(content, f)
+        json.dump(result, f)
         f.close()
 
         search_id, extension = os.path.splitext(filename)
@@ -39,11 +39,11 @@ def index():
 @app.route('/search/<search_id>')
 def search(search_id):
     filename = search_id + '.json'
-    f = open(os.path.join(tempfile.gettempdir(), filename), "r")
-    content = json.load(f)
+    f = open(os.path.join(tempfile.gettempdir(), filename), 'r')
+    result = json.load(f)
     f.close()
 
-    return render_template('search.html', title='Twitter Search', content=content, search_id=search_id)
+    return render_template('search.html', title='Twitter Search', result=result, search_id=search_id)
 
 @app.route('/download/<search_id>', methods=['GET', 'POST'])
 def download(search_id):

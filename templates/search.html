@@ -5,7 +5,7 @@
 <form action="{{ url_for('download', search_id=search_id) }}" method="post">
     <p><input type="submit" value="Download JSON"></p>
 </form>
-{% for tweet in content['statuses'] %}
+{% for tweet in result['tweets'] %}
     <li>
         {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
         <a href="{{ url }}">{{ tweet.text }}</a>

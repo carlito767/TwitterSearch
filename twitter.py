@@ -1,4 +1,6 @@
 # Sources:
+# https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets
+# https://developer.twitter.com/en/docs/tweets/rules-and-filtering/overview/standard-operators
 # https://blog.goodaudience.com/using-the-twitter-api-with-python-c6e8da96d273
 # https://preslav.me/2019/01/09/dotenv-files-python/
 
@@ -14,6 +16,8 @@ load_dotenv()
 # Consumer API keys
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
+
+MAX_TWEETS_PER_REQUEST = 100
 
 __key_ascii = '{}:{}'.format(API_KEY, API_SECRET_KEY).encode('ascii')
 __key_base64 = base64.b64encode(__key_ascii)
@@ -35,27 +39,40 @@ def __authenticate():
     access_token = auth_resp.json()['access_token']
     return access_token
 
-def search(query, count, geocode):
+def search(query, n, geocode):
     print(f'Query: {query}')
-    print(f'Count: {count}')
+    print(f'Number of tweets: {n}')
     print(f'Geocode: {geocode}')
 
     # Authentication
     access_token = __authenticate()
 
     # Search
-    search_headers = {
-        'Authorization': 'Bearer {}'.format(access_token)
-    }
-    search_params = {
-        'q': query,
-        'result_type': 'recent',
-        'count': count,
-        'geocode': geocode
-    }
-    search_url = '{}1.1/search/tweets.json'.format(__base_url)
-    search_resp = requests.get(search_url, headers=search_headers, params=search_params)
-    print(f'Search status: {search_resp.status_code}')
+    result = { 'tweets':[] }
+    max_id = None
+    while n > 0:
+        count = MAX_TWEETS_PER_REQUEST if (n >= MAX_TWEETS_PER_REQUEST) else n
+        n -= count
 
-    content = json.loads(search_resp.content)
-    return content
+        search_headers = {
+            'Authorization': 'Bearer {}'.format(access_token)
+        }
+        search_params = {
+            'q': query,
+            'result_type': 'recent',
+            'count': count,
+            'geocode': geocode,
+            'max_id': max_id
+        }
+        search_url = '{}1.1/search/tweets.json'.format(__base_url)
+        search_resp = requests.get(search_url, headers=search_headers, params=search_params)
+        print(f'Search status: {search_resp.status_code}')
+
+        content = json.loads(search_resp.content)
+        for tweet in content['statuses']:
+            id = tweet['id']
+            if max_id is None or max_id > id:
+                max_id = id
+            result['tweets'].append(tweet)
+
+    return result

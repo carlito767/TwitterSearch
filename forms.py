@@ -5,6 +5,6 @@ from wtforms.validators import DataRequired
 class SearchForm(FlaskForm):
     query = StringField('Query', validators=[DataRequired()], render_kw={'autofocus': True})
     no_retweets = BooleanField('No Retweets', default=True)
-    count = IntegerField('Number of tweets per page', validators=[DataRequired()], default=1)
+    n = IntegerField('Number of tweets', validators=[DataRequired()], default=15)
     geocode = StringField('Geocode')
     submit = SubmitField('Submit')
