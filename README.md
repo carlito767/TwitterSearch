@@ -1,33 +1,38 @@
 # TwitterSearch
-Recherche de tweets via l'API Search de Twitter
 
-# Configuration
+Search for tweets using Twitter Standard API
 
-* Installer [Python](https://www.python.org/)
-* Ajouter le dossier d'installation de `Python` et le dossier Scripts (contenant l'exécutable `pip`) dans le PATH
-* Cloner ce dépôt :
+# Getting started
+
+* Clone this repository:
+
 ```
 git clone --recursive https://github.com/carlito767/TwitterSearch
 ```
 
-* Installer les modules nécessaires au projet (à partir du dossier du projet) :
+* Install [Python](https://www.python.org/)
+* Add __Python__ and __Python Scripts__ (containing `pip` executable) directories to PATH
+
+* Install project dependencies (from project directory):
 
 ```
 pip install -r requirements.txt
 ```
 
-* Créer un fichier `.env` et renseigner [les clés *développeur* de votre application Twitter](https://developer.twitter.com/en/docs/basics/getting-started) :
+* Add `.env` file on the root of the project with [your Twitter API tokens](https://developer.twitter.com/en/docs/basics/getting-started):
 
 ```
 # Consumer API keys
-API_KEY=<renseigner_ici_votre_clé_developpeur>
-API_SECRET_KEY=<renseigner_ici_votre_clé_secrète_developpeur>
+API_KEY=<your_twitter_api_key>
+API_SECRET_KEY=<your_twitter_secret_api_key>
 ```
 
-# Exécution
+# How to run
 
-* Lancer le script :
+* Launch the app:
 
 ```
 python app.py
 ```
+
+* Launch a web browser at this address: http://localhost:5000/
