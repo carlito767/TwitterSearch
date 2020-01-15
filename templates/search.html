@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<h1>{{ title ~ ': %d result(s)' % result['tweets']|length }}</h1>
 <form action="{{ url_for('download', search_id=search_id) }}" method="post">
     <p><input type="submit" value="Download JSON"></p>
 </form>
