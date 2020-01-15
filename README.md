@@ -35,4 +35,4 @@ API_SECRET_KEY=<your_twitter_secret_api_key>
 python app.py
 ```
 
-* Launch a web browser at this address: http://localhost:5000/
+* Open this URL in your browser: http://localhost:5000/

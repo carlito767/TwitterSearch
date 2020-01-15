@@ -51,7 +51,7 @@ def search(query, n, geocode):
     result = { 'tweets':[] }
     max_id = None
     while n > 0:
-        count = MAX_TWEETS_PER_REQUEST if (n >= MAX_TWEETS_PER_REQUEST) else n
+        count = min(n, MAX_TWEETS_PER_REQUEST)
         n -= count
 
         search_headers = {
