@@ -15,12 +15,13 @@ def index():
         query = request.form.get('query')
         no_retweets = request.form.get('no_retweets')
         n = request.form.get('n')
+        result_type = request.form.get('result_type')
         geocode = request.form.get('geocode')
 
         if no_retweets:
             query += ' -filter:retweets'
 
-        result = twitter.search(query, int(n), geocode)
+        result = twitter.search(query, int(n), result_type, geocode)
 
         # JSON file
         f = tempfile.NamedTemporaryFile(prefix='search_', suffix='.json', mode='w+', delete=False)

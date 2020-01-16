@@ -17,6 +17,10 @@
         {{ form.n(size=4) }}
     </p>
     <p>
+        {{ form.result_type.label }}<br>
+        {{ form.result_type() }}
+    </p>
+    <p>
         {{ form.geocode.label }}<br>
         {{ form.geocode(size=50) }}
     </p>
