@@ -32,5 +32,10 @@
         {{ form.geocode(size=50) }}
     </p>
     <p>{{ form.submit() }}</p>
+    {% for field, errors in form.errors.items() %}
+    <div style="color:red">
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+    </div>
+    {% endfor %}
 </form>
 {% endblock %}
