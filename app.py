@@ -16,10 +16,18 @@ def index():
         no_retweets = request.form.get('no_retweets')
         n = request.form.get('n')
         result_type = request.form.get('result_type')
+        since = request.form.get('since')
+        until = request.form.get('until')
         geocode = request.form.get('geocode')
 
         if no_retweets:
             query += ' -filter:retweets'
+
+        if since:
+            query += f' since:{since}'
+
+        if until:
+            query += f' until:{until}'
 
         result = twitter.search(query, int(n), result_type, geocode)
 
