@@ -35,7 +35,6 @@ def __authenticate():
     }
     auth_url = '{}oauth2/token'.format(__base_url)
     auth_resp = requests.post(auth_url, headers=auth_headers, data=auth_data)
-    print(f'Authentication status: {auth_resp.status_code}')
     access_token = auth_resp.json()['access_token']
     return access_token
 
@@ -66,14 +65,17 @@ def search(query, n, result_type, geocode):
             'max_id': max_id
         }
         search_url = '{}1.1/search/tweets.json'.format(__base_url)
-        search_resp = requests.get(search_url, headers=search_headers, params=search_params)
-        print(f'Search status: {search_resp.status_code}')
-
-        content = json.loads(search_resp.content)
-        for tweet in content['statuses']:
-            id = tweet['id']
-            if max_id is None or max_id > id:
-                max_id = id
-            result['tweets'].append(tweet)
+        try:
+            search_resp = requests.get(search_url, headers=search_headers, params=search_params)
+            search_resp.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            print(f'Error: {err}')
+        else:
+            content = json.loads(search_resp.content)
+            for tweet in content['statuses']:
+                id = tweet['id']
+                if max_id is None or max_id > id:
+                    max_id = id
+                result['tweets'].append(tweet)
 
     return result
