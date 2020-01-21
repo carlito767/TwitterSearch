@@ -2,6 +2,7 @@
 # https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets
 # https://developer.twitter.com/en/docs/tweets/rules-and-filtering/overview/standard-operators
 # https://blog.goodaudience.com/using-the-twitter-api-with-python-c6e8da96d273
+# https://stackoverflow.com/questions/38717816/twitter-api-text-field-value-is-truncated
 # https://preslav.me/2019/01/09/dotenv-files-python/
 
 import base64
@@ -62,7 +63,8 @@ def search(query, n, result_type, geocode):
             'count': count,
             'result_type': result_type,
             'geocode': geocode,
-            'max_id': max_id
+            'max_id': max_id,
+            'tweet_mode': 'extended'
         }
         search_url = '{}1.1/search/tweets.json'.format(__base_url)
         try:

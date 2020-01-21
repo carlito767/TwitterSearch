@@ -8,7 +8,7 @@
 {% for tweet in result['tweets'] %}
     <li>
         {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
-        <a href="{{ url }}">{{ tweet.text }}</a>
+        <a href="{{ url }}">{{ tweet.full_text }}</a>
     </li>
 {% endfor %}
 {% endblock %}
