@@ -32,11 +32,11 @@ def index():
         result = twitter.search(query, int(n), result_type, geocode)
 
         # JSON file
-        f = tempfile.NamedTemporaryFile(prefix='search_', suffix='.json', mode='w+', delete=False)
+        f = tempfile.NamedTemporaryFile(prefix='search_', suffix='.json', mode='w+', encoding='utf-8', delete=False)
         print(f'JSON path: {f.name}')
         filename = os.path.basename(f.name)
         print(f'JSON filename: {filename}')
-        json.dump(result, f)
+        json.dump(result, f, ensure_ascii=False)
         f.close()
 
         search_id, extension = os.path.splitext(filename)
@@ -48,7 +48,7 @@ def index():
 @app.route('/search/<search_id>')
 def search(search_id):
     filename = search_id + '.json'
-    f = open(os.path.join(tempfile.gettempdir(), filename), 'r')
+    f = open(os.path.join(tempfile.gettempdir(), filename), mode='r', encoding='utf-8')
     result = json.load(f)
     f.close()
 
