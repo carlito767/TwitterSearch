@@ -1,23 +1,15 @@
-from flask import Flask, redirect, render_template, request, send_from_directory, url_for
-from forms import SearchForm
+from app import app, twitter
+from app.forms import SearchForm
+from flask import redirect, render_template, request, send_from_directory, url_for
 import json
 import os
 import tempfile
-import twitter
 
-# Settings
-from dotenv import load_dotenv
-load_dotenv()
-
-# Consumer API keys
+# Bearer token
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
 
 BEARER_TOKEN = twitter.get_bearer_token(API_KEY, API_SECRET_KEY)
-
-# Flask App
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -70,6 +62,3 @@ def download(search_id):
     filename = search_id + '.json'
     print(f'Download JSON file: {filename}')
     return send_from_directory(tempfile.gettempdir(), filename, as_attachment=True)
-
-if __name__ == '__main__':
-    app.run()

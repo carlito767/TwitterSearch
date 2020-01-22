@@ -4,6 +4,9 @@ Search for tweets using Twitter Standard API
 
 # Getting started
 
+
+* Get [your Twitter API tokens](https://developer.twitter.com/en/docs/basics/getting-started)
+
 * Clone this repository:
 
 ```
@@ -19,12 +22,12 @@ git clone --recursive https://github.com/carlito767/TwitterSearch
 pip install -r requirements.txt
 ```
 
-* Add `.env` file on the root of the project with [your Twitter API tokens](https://developer.twitter.com/en/docs/basics/getting-started):
+* Copy `.env.example` to `.env` and update environment variables:
 
 ```
 # Consumer API keys
-API_KEY=<your_twitter_api_key>
-API_SECRET_KEY=<your_twitter_secret_api_key>
+API_KEY=<your_twitter_consumer_api_key>
+API_SECRET_KEY=<your_twitter_consumer_secret_api_key>
 ```
 
 # How to run
@@ -32,7 +35,7 @@ API_SECRET_KEY=<your_twitter_secret_api_key>
 * Launch the app:
 
 ```
-python app.py
+flask run
 ```
 
 * Open this URL in your browser: http://localhost:5000/

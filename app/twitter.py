@@ -3,7 +3,6 @@
 # https://developer.twitter.com/en/docs/tweets/rules-and-filtering/overview/standard-operators
 # http://benalexkeen.com/interacting-with-the-twitter-api-using-python/
 # https://stackoverflow.com/questions/38717816/twitter-api-text-field-value-is-truncated
-# https://preslav.me/2019/01/09/dotenv-files-python/
 
 import base64
 import json
