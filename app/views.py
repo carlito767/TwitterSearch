@@ -8,7 +8,6 @@ import tempfile
 # Bearer token
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
-
 BEARER_TOKEN = twitter.get_bearer_token(API_KEY, API_SECRET_KEY)
 
 @app.route('/', methods=['GET', 'POST'])

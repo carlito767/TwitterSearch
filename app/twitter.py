@@ -6,11 +6,9 @@
 
 import base64
 import json
-import os
 import requests
 
 base_url = 'https://api.twitter.com/'
-auth_url = '{}oauth2/token'.format(base_url)
 
 def get_bearer_token(consumer_key, consumer_secret):
     key_secret = '{}:{}'.format(consumer_key, consumer_secret).encode('ascii')
@@ -24,6 +22,7 @@ def get_bearer_token(consumer_key, consumer_secret):
     auth_data = {
         'grant_type': 'client_credentials'
     }
+    auth_url = '{}oauth2/token'.format(base_url)
     auth_resp = requests.post(auth_url, headers=auth_headers, data=auth_data)
     bearer_token = auth_resp.json()['access_token']
     return bearer_token
