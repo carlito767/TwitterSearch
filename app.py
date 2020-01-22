@@ -5,6 +5,17 @@ import os
 import tempfile
 import twitter
 
+# Settings
+from dotenv import load_dotenv
+load_dotenv()
+
+# Consumer API keys
+API_KEY = os.getenv('API_KEY')
+API_SECRET_KEY = os.getenv('API_SECRET_KEY')
+
+BEARER_TOKEN = twitter.get_bearer_token(API_KEY, API_SECRET_KEY)
+
+# Flask App
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
@@ -29,7 +40,7 @@ def index():
         if until:
             query += f' until:{until}'
 
-        result = twitter.search(query, int(n), result_type, geocode)
+        result = twitter.search(BEARER_TOKEN, query, int(n), result_type, geocode)
 
         # JSON file
         f = tempfile.NamedTemporaryFile(prefix='search_', suffix='.json', mode='w+', encoding='utf-8', delete=False)

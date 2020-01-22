@@ -1,7 +1,7 @@
 # Sources:
 # https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets
 # https://developer.twitter.com/en/docs/tweets/rules-and-filtering/overview/standard-operators
-# https://blog.goodaudience.com/using-the-twitter-api-with-python-c6e8da96d273
+# http://benalexkeen.com/interacting-with-the-twitter-api-using-python/
 # https://stackoverflow.com/questions/38717816/twitter-api-text-field-value-is-truncated
 # https://preslav.me/2019/01/09/dotenv-files-python/
 
@@ -10,53 +10,40 @@ import json
 import os
 import requests
 
-# Settings
-from dotenv import load_dotenv
-load_dotenv()
+base_url = 'https://api.twitter.com/'
+auth_url = '{}oauth2/token'.format(base_url)
 
-# Consumer API keys
-API_KEY = os.getenv('API_KEY')
-API_SECRET_KEY = os.getenv('API_SECRET_KEY')
+def get_bearer_token(consumer_key, consumer_secret):
+    key_secret = '{}:{}'.format(consumer_key, consumer_secret).encode('ascii')
+    b64_encoded_key = base64.b64encode(key_secret)
+    b64_encoded_key = b64_encoded_key.decode('ascii')
 
-MAX_TWEETS_PER_REQUEST = 100
-
-__key_ascii = '{}:{}'.format(API_KEY, API_SECRET_KEY).encode('ascii')
-__key_base64 = base64.b64encode(__key_ascii)
-__key_base64 = __key_base64.decode('ascii')
-
-__base_url = 'https://api.twitter.com/'
-
-def __authenticate():
     auth_headers = {
-        'Authorization': 'Basic {}'.format(__key_base64),
+        'Authorization': 'Basic {}'.format(b64_encoded_key),
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     }
     auth_data = {
         'grant_type': 'client_credentials'
     }
-    auth_url = '{}oauth2/token'.format(__base_url)
     auth_resp = requests.post(auth_url, headers=auth_headers, data=auth_data)
-    access_token = auth_resp.json()['access_token']
-    return access_token
+    bearer_token = auth_resp.json()['access_token']
+    return bearer_token
 
-def search(query, n, result_type, geocode):
+def search(bearer_token, query, n, result_type, geocode):
     print(f'Query: {query}')
     print(f'Number of tweets: {n}')
     print(f'Type of results: {result_type}')
     print(f'Geocode: {geocode}')
 
-    # Authentication
-    access_token = __authenticate()
-
-    # Search
     result = { 'tweets':[] }
+    max_tweets_per_request = 100
     max_id = None
     while n > 0:
-        count = min(n, MAX_TWEETS_PER_REQUEST)
+        count = min(n, max_tweets_per_request)
         n -= count
 
         search_headers = {
-            'Authorization': 'Bearer {}'.format(access_token)
+            'Authorization': 'Bearer {}'.format(bearer_token)
         }
         search_params = {
             'q': query,
@@ -66,7 +53,7 @@ def search(query, n, result_type, geocode):
             'max_id': max_id,
             'tweet_mode': 'extended'
         }
-        search_url = '{}1.1/search/tweets.json'.format(__base_url)
+        search_url = '{}1.1/search/tweets.json'.format(base_url)
         try:
             search_resp = requests.get(search_url, headers=search_headers, params=search_params)
             search_resp.raise_for_status()
