@@ -3,6 +3,7 @@ from app.forms import SearchForm
 from flask import redirect, render_template, request, send_from_directory, url_for
 import json
 import os
+import re
 import tempfile
 import time
 
@@ -13,8 +14,19 @@ BEARER_TOKEN = twitter.get_bearer_token(API_KEY, API_SECRET_KEY)
 
 # Template filters
 @app.template_filter()
-def twitter_datetime(datetime, format='%a %b %d %Y %H:%M:%S'):
+def tweet_datetime(datetime, format='%a %b %d %Y %H:%M:%S'):
     return time.strftime(format, time.strptime(datetime,'%a %b %d %H:%M:%S +0000 %Y'))
+
+@app.template_filter()
+def tweet_links(text):
+    # Twitter link
+    r = re.sub(r'(https://t.co/[\d\w\.]+)', r'<a href="\1" class="tweet-link">\1</a>', text)
+    # Hashtag
+    r = re.sub(r'#([\d\w\.]+)', r'<a href="https://twitter.com/hashtag/\1" class="tweet-hashtag">#\1</a>', r)
+    # Twitter user
+    r = re.sub(r'@([\d\w\.]+)', r'<a href="https://twitter.com/\1" class="tweet-user">@\1</a>', r)
+    # Tweet text with links
+    return r
 
 # Routes
 @app.route('/', methods=['GET', 'POST'])

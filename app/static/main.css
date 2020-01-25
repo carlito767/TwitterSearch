@@ -3,3 +3,17 @@
   margin-bottom: 4px;
   border-bottom: 1px solid #cccccc
 }
+
+a.tweet-hashtag {
+  font-weight: bold;
+  color: black;
+}
+
+a.tweet-user {
+  font-weight: bold;
+  color: black;
+}
+
+a.tweet-link {
+  color: green;
+}
