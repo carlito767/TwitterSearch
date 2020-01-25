@@ -1,41 +1,52 @@
-{% extends "base.html" %}
-
+{% extends "layout.html" %}
 {% block content %}
 <h1>{{ title }}</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    <p>
+    <div class="form-group">
         {{ form.query.label }}<br>
         {{ form.query(size=100) }}
-    </p>
-    <p>
+        {% if form.query.errors %}
+            <div class="text-danger">
+                {% for error in form.query.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
         {{ form.no_retweets() }}
         {{ form.no_retweets.label }}
-    </p>
-    <p>
+    </div>
+    <div class="form-group">
         {{ form.n.label }}<br>
         {{ form.n(size=4) }}
-    </p>
-    <p>
+        {% if form.n.errors %}
+            <div class="text-danger">
+                {% for error in form.n.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
         {{ form.result_type.label }}<br>
         {{ form.result_type() }}
-    </p>
+    </div>
+    <div class="form-group">
         {{ form.since.label }}<br>
         {{ form.since() }}
-    </p>
-    </p>
+    </div>
+    <div class="form-group">
         {{ form.until.label }}<br>
         {{ form.until() }}
-    </p>
-    <p>
+    </div>
+    <div class="form-group">
         {{ form.geocode.label }}<br>
         {{ form.geocode(size=50) }}
-    </p>
-    <p>{{ form.submit() }}</p>
-    {% for field, errors in form.errors.items() %}
-    <div style="color:red">
-        {{ form[field].label }}: {{ ', '.join(errors) }}
     </div>
-    {% endfor %}
+    <div class="form-group">
+        {{ form.submit(class='btn btn-primary') }}
+    </div>
 </form>
 {% endblock %}

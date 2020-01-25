@@ -1,14 +1,15 @@
-{% extends "base.html" %}
-
+{% extends "layout.html" %}
 {% block content %}
 <h1>{{ title ~ ': %d result(s)' % result['tweets']|length }}</h1>
 <form action="{{ url_for('download', search_id=search_id) }}" method="post">
-    <p><input type="submit" value="Download JSON"></p>
+    <p><input class="btn btn-primary" type="submit" value="Download JSON"></p>
 </form>
 {% for tweet in result['tweets'] %}
-    <li>
+    <div class="tweet-metadata">
         {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
-        <a href="{{ url }}">{{ tweet.full_text }}</a>
-    </li>
+        <a class="mr-1" href="{{ url }}">{{ tweet.user.name }}</a>
+        <small class="text-muted">{{ tweet.created_at }}</small>
+    </div>
+    <p>{{ tweet.full_text }}</p>
 {% endfor %}
 {% endblock %}
