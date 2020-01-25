@@ -4,12 +4,19 @@ from flask import redirect, render_template, request, send_from_directory, url_f
 import json
 import os
 import tempfile
+import time
 
 # Bearer token
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
 BEARER_TOKEN = twitter.get_bearer_token(API_KEY, API_SECRET_KEY)
 
+# Template filters
+@app.template_filter()
+def twitter_datetime(datetime, format='%A %b %d %Y %H:%M:%S'):
+    return time.strftime(format, time.strptime(datetime,'%a %b %d %H:%M:%S +0000 %Y'))
+
+# Routes
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = SearchForm()
