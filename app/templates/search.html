@@ -4,15 +4,15 @@
 <form action="{{ url_for('download', search_id=search_id) }}" method="post">
     <p><input class="btn btn-primary" type="submit" value="Download JSON"></p>
 </form>
-{% for tweet in tweets %}
+    {% for tweet in tweets %}
     <div class="tweet-metadata">
         {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
         <a class="mr-1" href="{{ url }}">{{ tweet.user.name }}</a>
         <small class="text-muted">{{ tweet.created_at|twitter_datetime }}</small>
         {% if tweet.user.location|length %}
-            <small class="text-info">{{ tweet.user.location }}</small>
+        <small class="text-info">{{ tweet.user.location }}</small>
         {% endif %}
     </div>
     <p>{{ tweet.full_text }}</p>
-{% endfor %}
+    {% endfor %}
 {% endblock %}
