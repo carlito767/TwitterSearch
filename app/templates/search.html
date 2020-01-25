@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ title ~ ': %d result(s)' % result['tweets']|length }}</h1>
+<h1>{{ title ~ ': %d result(s)' % tweets|length }}</h1>
 <form action="{{ url_for('download', search_id=search_id) }}" method="post">
     <p><input class="btn btn-primary" type="submit" value="Download JSON"></p>
 </form>
-{% for tweet in result['tweets'] %}
+{% for tweet in tweets %}
     <div class="tweet-metadata">
         {% set url = 'https://twitter.com/user/status/' ~ tweet.id %}
         <a class="mr-1" href="{{ url }}">{{ tweet.user.name }}</a>

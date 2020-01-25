@@ -61,7 +61,7 @@ def search(search_id):
     result = json.load(f)
     f.close()
 
-    return render_template('search.html', title='Twitter Search', result=result, search_id=search_id)
+    return render_template('search.html', title='Twitter Search', tweets=result['tweets'], search_id=search_id)
 
 @app.route('/download/<search_id>', methods=['GET', 'POST'])
 def download(search_id):
