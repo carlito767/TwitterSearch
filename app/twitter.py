@@ -62,7 +62,7 @@ def search(bearer_token, query, n, result_type, geocode):
             for tweet in content['statuses']:
                 id = tweet['id']
                 if max_id is None or max_id > id:
-                    max_id = id
+                    max_id = id - 1
                 result['tweets'].append(tweet)
 
     return result
