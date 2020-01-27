@@ -27,9 +27,10 @@ def get_bearer_token(consumer_key, consumer_secret):
     bearer_token = auth_resp.json()['access_token']
     return bearer_token
 
-def search(bearer_token, query, n, result_type, geocode):
+def search(bearer_token, query, n, language, result_type, geocode):
     print(f'Query: {query}')
     print(f'Number of tweets: {n}')
+    print(f'Language: {language}')
     print(f'Type of results: {result_type}')
     print(f'Geocode: {geocode}')
 
@@ -46,6 +47,7 @@ def search(bearer_token, query, n, result_type, geocode):
         search_params = {
             'q': query,
             'count': count,
+            'lang': language,
             'result_type': result_type,
             'geocode': geocode,
             'max_id': max_id,

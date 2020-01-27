@@ -36,6 +36,7 @@ def index():
         query = request.form.get('query')
         no_retweets = request.form.get('no_retweets')
         n = request.form.get('n')
+        language = request.form.get('language')
         result_type = request.form.get('result_type')
         since = request.form.get('since')
         until = request.form.get('until')
@@ -50,7 +51,7 @@ def index():
         if until:
             query += f' until:{until}'
 
-        result = twitter.search(BEARER_TOKEN, query, int(n), result_type, geocode)
+        result = twitter.search(BEARER_TOKEN, query, int(n), language, result_type, geocode)
 
         # JSON file
         f = tempfile.NamedTemporaryFile(prefix='search_', suffix='.json', mode='w+', encoding='utf-8', delete=False)

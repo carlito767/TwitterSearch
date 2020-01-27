@@ -30,6 +30,10 @@
         {% endif %}
     </div>
     <div class="form-group">
+        {{ form.language.label }}<br>
+        {{ form.language() }}
+    </div>
+    <div class="form-group">
         {{ form.result_type.label }}<br>
         {{ form.result_type() }}
     </div>
