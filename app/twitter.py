@@ -61,7 +61,10 @@ def search(bearer_token, query, n, language, result_type, geocode):
             print(f'Error: {err}')
         else:
             content = json.loads(search_resp.content)
-            for tweet in content['statuses']:
+            tweets = content['statuses']
+            if not tweets:
+                break
+            for tweet in tweets:
                 id = tweet['id']
                 if max_id is None or max_id > id:
                     max_id = id - 1
