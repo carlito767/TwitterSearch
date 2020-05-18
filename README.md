@@ -14,7 +14,10 @@ git clone --recursive https://github.com/carlito767/TwitterSearch
 ```
 
 * Install [Python](https://www.python.org/)
+
 * Add __Python__ and __Python Scripts__ (containing `pip` executable) directories to PATH
+
+* [Setup a virtual environment](https://gist.github.com/carlito767/c3e4711c1abf2d71f08ca4a0d7526f10)
 
 * Install project dependencies (from project directory):
 
